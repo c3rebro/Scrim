@@ -427,11 +427,6 @@ namespace Scrim
             }
         }
         
-        void GroupBox1Enter(object sender, System.EventArgs e)
-        {
-            
-        }
-        
         void Button2Click(object sender, System.EventArgs e)
         {
             if(System.IO.File.Exists(settingFileName)) {
