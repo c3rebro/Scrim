@@ -213,14 +213,14 @@ namespace Scrim
                                 Environment.Exit(0);
                             }
                         }
-                        sddl=RunProcess(string.Format("sc"),string.Format("sdshow svcommnodesvr"),true, false);
+                		sddl=RunProcess(string.Format("sc"),string.Format("sdshow {0}",selectedService.ToLower()),true, false);
                         Trace.WriteLine(sddl);
                         sddl=sddl.Replace("\r\n","");
                         Trace.WriteLine(sddl);
                         
                         if(!sddl.Contains(string.Format("(A;;RPWPCR;;;{0})",userSID)))    {
                             sddl=sddl.Insert(sddl.IndexOf("S:(AU"),string.Format("(A;;RPWPCR;;;{0})",userSID));
-                            sddl=RunProcess(string.Format("sc"),string.Format("sdset svcommnodesvr \"{0}\"",sddl),true,false);
+                            sddl=RunProcess(string.Format("sc"),string.Format("sdset {0} \"{1}\"",selectedService.ToLower(),sddl),true,false);
                             
                             if(sddl.Contains("ERFOLG")){
                                 MessageBox.Show(string.Format("Die Rechte wurden erfolgreich gesetzt\n\n{0}",sddl),"Erfolgreich",
@@ -239,7 +239,7 @@ namespace Scrim
                                 
                                 sddlu=sddl;
                                 sddlu=sddlu.Replace(string.Format("(A;;RPWPCR;;;{0})",userSID),"");
-                                sddlu=RunProcess(string.Format("sc"),string.Format("sdset svcommnodesvr \"{0}\"",sddlu),true,false);
+                                sddlu=RunProcess(string.Format("sc"),string.Format("sdset {0} \"{1}\"",selectedService.ToLower(),sddlu),true,false);
                                 
                                 if(sddlu.Contains("ERFOLG")){
                                     MessageBox.Show("Die Rechte wurden erfolgreich entzogen","Erfolgreich",
